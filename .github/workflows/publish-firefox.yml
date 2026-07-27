@@ -1,0 +1,46 @@
+name: Publish to Firefox Add-ons
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    environment: firefox-addons
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install pinned extension tooling
+        run: npm install
+
+      - name: Run Mozilla linter
+        run: npm run lint
+
+      - name: Submit listed release to AMO
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: >
+          npx web-ext sign
+          --source-dir extension
+          --artifacts-dir artifacts
+          --channel listed
+          --amo-metadata amo-metadata.json
+          --api-key "$AMO_JWT_ISSUER"
+          --api-secret "$AMO_JWT_SECRET"
+
+      - name: Upload signed package
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-watchdog-signed
+          path: artifacts/*.xpi
+          if-no-files-found: error

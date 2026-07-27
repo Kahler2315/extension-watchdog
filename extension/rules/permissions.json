@@ -1,0 +1,97 @@
+{
+  "management": {
+    "level": "critical",
+    "title": "Manages other extensions",
+    "explanation": "Can inspect, uninstall, or otherwise manage installed add-ons."
+  },
+  "nativeMessaging": {
+    "level": "critical",
+    "title": "Communicates with desktop software",
+    "explanation": "Can exchange data with an approved application installed outside Firefox."
+  },
+  "proxy": {
+    "level": "critical",
+    "title": "Controls proxy settings",
+    "explanation": "Can route browser traffic through a different network destination."
+  },
+  "debugger": {
+    "level": "critical",
+    "title": "Uses browser debugging tools",
+    "explanation": "Can inspect and control browser activity through privileged debugging capabilities."
+  },
+  "cookies": {
+    "level": "high",
+    "title": "Accesses browser cookies",
+    "explanation": "Can read or change cookies for sites covered by its host access."
+  },
+  "webRequestBlocking": {
+    "level": "high",
+    "title": "Changes network requests",
+    "explanation": "Can block or modify browser requests for sites covered by its host access."
+  },
+  "declarativeNetRequestWithHostAccess": {
+    "level": "high",
+    "title": "Changes requests on approved sites",
+    "explanation": "Can apply request-blocking or redirect rules to sites it can access."
+  },
+  "clipboardRead": {
+    "level": "high",
+    "title": "Reads the clipboard",
+    "explanation": "Can read text or other supported data copied to the system clipboard."
+  },
+  "history": {
+    "level": "high",
+    "title": "Reads browsing history",
+    "explanation": "Can inspect and modify the browser's history."
+  },
+  "downloads": {
+    "level": "moderate",
+    "title": "Accesses downloads",
+    "explanation": "Can observe and manage files downloaded through Firefox."
+  },
+  "clipboardWrite": {
+    "level": "moderate",
+    "title": "Writes to the clipboard",
+    "explanation": "Can replace text or supported data on the system clipboard."
+  },
+  "privacy": {
+    "level": "moderate",
+    "title": "Changes privacy settings",
+    "explanation": "Can view or modify Firefox privacy-related settings."
+  },
+  "browsingData": {
+    "level": "moderate",
+    "title": "Clears browsing data",
+    "explanation": "Can remove browser data such as cache, history, or cookies."
+  },
+  "webRequest": {
+    "level": "moderate",
+    "title": "Observes network requests",
+    "explanation": "Can observe browser requests for sites covered by its host access."
+  },
+  "dns": {
+    "level": "moderate",
+    "title": "Performs DNS lookups",
+    "explanation": "Can resolve domain names through Firefox."
+  },
+  "tabs": {
+    "level": "moderate",
+    "title": "Reads tab details",
+    "explanation": "Can read sensitive tab properties such as page titles and addresses."
+  },
+  "activeTab": {
+    "level": "limited",
+    "title": "Accesses the selected tab after a click",
+    "explanation": "Receives temporary access only after you deliberately activate the extension."
+  },
+  "storage": {
+    "level": "limited",
+    "title": "Stores local settings",
+    "explanation": "Can save its own preferences and state inside Firefox."
+  },
+  "notifications": {
+    "level": "limited",
+    "title": "Shows notifications",
+    "explanation": "Can display operating-system notifications."
+  }
+}

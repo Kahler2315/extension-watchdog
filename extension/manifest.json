@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Extension Watchdog",
+  "version": "0.1.0",
+  "description": "Understand extension permissions and review meaningful changes without sending browser data anywhere.",
+  "homepage_url": "https://github.com/Kahler2315/extension-watchdog",
+  "icons": {
+    "48": "icons/watchdog-48.svg",
+    "96": "icons/watchdog-96.svg"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "extension-watchdog@kahler2315.github.io",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "permissions": [
+    "management",
+    "storage",
+    "notifications"
+  ],
+  "background": {
+    "scripts": [
+      "background/background.js"
+    ]
+  },
+  "action": {
+    "default_title": "Extension Watchdog",
+    "default_icon": {
+      "48": "icons/watchdog-48.svg",
+      "96": "icons/watchdog-96.svg"
+    },
+    "default_popup": "popup/popup.html"
+  },
+  "options_ui": {
+    "page": "dashboard/index.html",
+    "open_in_tab": true
+  }
+}

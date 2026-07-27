@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Extension Watchdog</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <header>
+      <img src="../icons/watchdog-48.svg" alt="" width="34" height="34">
+      <div>
+        <strong>Extension Watchdog</strong>
+        <span>Local permission monitor</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary" aria-label="Extension summary">
+        <div>
+          <strong id="extension-count">—</strong>
+          <span>Extensions</span>
+        </div>
+        <div>
+          <strong id="review-count">—</strong>
+          <span>Need review</span>
+        </div>
+        <div>
+          <strong id="change-count">—</strong>
+          <span>New changes</span>
+        </div>
+      </section>
+      <p id="popup-status" role="status">Reading local extension metadata…</p>
+      <button id="dashboard-button" type="button">Open dashboard</button>
+    </main>
+
+    <footer>Nothing is sent outside Firefox.</footer>
+    <script src="popup.js"></script>
+  </body>
+</html>

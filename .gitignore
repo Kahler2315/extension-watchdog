@@ -1,0 +1,9 @@
+node_modules/
+web-ext-artifacts/
+artifacts/
+__pycache__/
+*.py[cod]
+*.xpi
+*.zip
+.amo-upload-uuid
+.DS_Store

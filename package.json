@@ -1,0 +1,19 @@
+{
+  "name": "extension-watchdog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A local-first Firefox extension permission and change monitor.",
+  "license": "MPL-2.0",
+  "scripts": {
+    "build": "web-ext build --source-dir extension --artifacts-dir artifacts --overwrite-dest",
+    "lint": "web-ext lint --source-dir extension",
+    "start": "web-ext run --source-dir extension",
+    "test": "python3 -m unittest discover -s tests -v"
+  },
+  "devDependencies": {
+    "web-ext": "10.5.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

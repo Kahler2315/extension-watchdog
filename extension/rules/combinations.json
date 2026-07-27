@@ -1,0 +1,62 @@
+[
+  {
+    "id": "all-sites-and-cookies",
+    "level": "critical",
+    "requires": [
+      "host:all_sites",
+      "permission:cookies"
+    ],
+    "title": "Broad website and cookie access",
+    "explanation": "This combination could expose authenticated activity across many websites if the extension were compromised."
+  },
+  {
+    "id": "all-sites-and-request-control",
+    "level": "critical",
+    "requires": [
+      "host:all_sites",
+      "permission:webRequestBlocking"
+    ],
+    "title": "Broad request modification",
+    "explanation": "This combination can modify traffic across nearly every website."
+  },
+  {
+    "id": "downloads-and-native-messaging",
+    "level": "critical",
+    "requires": [
+      "permission:downloads",
+      "permission:nativeMessaging"
+    ],
+    "title": "Downloads connected to desktop software",
+    "explanation": "This combination bridges browser downloads with an application running outside Firefox."
+  },
+  {
+    "id": "all-sites-and-clipboard-read",
+    "level": "critical",
+    "requires": [
+      "host:all_sites",
+      "permission:clipboardRead"
+    ],
+    "title": "Broad website and clipboard access",
+    "explanation": "This combination can observe web content and copied data."
+  },
+  {
+    "id": "proxy-and-request-observation",
+    "level": "critical",
+    "requires": [
+      "permission:proxy",
+      "permission:webRequest"
+    ],
+    "title": "Traffic routing and observation",
+    "explanation": "This combination can route browser traffic and observe requests."
+  },
+  {
+    "id": "all-sites-and-history",
+    "level": "high",
+    "requires": [
+      "host:all_sites",
+      "permission:history"
+    ],
+    "title": "Broad activity visibility",
+    "explanation": "This combination reveals both current website access and historical browsing activity."
+  }
+]
