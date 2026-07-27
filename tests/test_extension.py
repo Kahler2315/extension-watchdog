@@ -35,6 +35,12 @@ class ManifestTests(unittest.TestCase):
             "data_collection_permissions"
         ]
         self.assertEqual(permissions, {"required": ["none"]})
+        self.assertEqual(
+            self.manifest["browser_specific_settings"]["gecko_android"][
+                "strict_min_version"
+            ],
+            "142.0",
+        )
 
     def test_extension_requests_only_expected_permissions(self):
         self.assertEqual(
@@ -109,6 +115,7 @@ class SourceSafetyTests(unittest.TestCase):
                 )
                 self.assertNotIn("eval(", source)
                 self.assertNotIn(".innerHTML", source)
+                self.assertNotIn("management.uninstall", source)
 
     def test_rules_are_loaded_from_packaged_urls(self):
         background = (EXTENSION / "background" / "background.js").read_text(

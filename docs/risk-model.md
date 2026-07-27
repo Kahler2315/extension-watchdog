@@ -31,8 +31,8 @@ Examples: cookies, browsing history, clipboard reads, and all-site host access.
 Capabilities or combinations that cross major trust boundaries or provide
 control over traffic, other extensions, debugging, or desktop applications.
 
-Examples: extension management, native messaging, proxy control, and all-site
-access combined with cookies or request modification.
+Examples: native messaging, proxy control, debugging, and all-site access
+combined with cookies or request modification.
 
 ## Interpretation
 

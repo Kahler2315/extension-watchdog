@@ -1,8 +1,8 @@
 {
   "management": {
-    "level": "critical",
-    "title": "Manages other extensions",
-    "explanation": "Can inspect, uninstall, or otherwise manage installed add-ons."
+    "level": "high",
+    "title": "Inspects installed add-ons",
+    "explanation": "Can read details about other add-ons and use the management actions Firefox supports."
   },
   "nativeMessaging": {
     "level": "critical",

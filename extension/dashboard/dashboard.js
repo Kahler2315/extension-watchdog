@@ -212,17 +212,7 @@ function createExtensionCard(extension) {
     rawValues.length > 0 ? rawValues.join(" · ") : "No declared API or host permissions."
   );
 
-  const actions = createElement("div", "extension-actions");
-  if (extension.mayDisable) {
-    const removeButton = createElement("button", "danger-button", "Remove extension…");
-    removeButton.type = "button";
-    removeButton.addEventListener("click", async () => {
-      await requestUninstall(extension, removeButton);
-    });
-    actions.append(removeButton);
-  }
-
-  details.append(summary, findingList, rawAccess, actions);
+  details.append(summary, findingList, rawAccess);
   card.append(details);
   return card;
 }
@@ -371,25 +361,6 @@ async function markReviewed() {
   } catch (error) {
     console.error(error);
     setStatus(`Could not update the review state: ${error.message}`, true);
-  }
-}
-
-async function requestUninstall(extension, button) {
-  button.disabled = true;
-  try {
-    await browser.runtime.sendMessage({
-      type: "uninstall-extension",
-      extensionId: extension.id
-    });
-    setStatus(`${extension.name} was removed.`);
-    await runScan();
-  } catch (error) {
-    if (!String(error.message).toLocaleLowerCase().includes("cancel")) {
-      console.error(error);
-      setStatus(`Could not remove ${extension.name}: ${error.message}`, true);
-    }
-  } finally {
-    button.disabled = false;
   }
 }
 

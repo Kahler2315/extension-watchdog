@@ -21,6 +21,6 @@ disclosure timeline will be developed after the issue is reproduced.
 - No content scripts or website access
 - No telemetry
 - Minimal required Firefox permissions
-- User confirmation before extension removal
+- User-controlled extension actions through Firefox's add-on manager
 - Human-readable risk rules
 - Signed releases through Mozilla Add-ons

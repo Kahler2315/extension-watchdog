@@ -445,10 +445,6 @@ browser.runtime.onMessage.addListener((message) => {
       return markChangesReviewed(message.changeIds);
     case "open-addons-manager":
       return browser.tabs.create({ url: "about:addons" });
-    case "uninstall-extension":
-      return browser.management.uninstall(message.extensionId, {
-        showConfirmDialog: true
-      });
     default:
       return undefined;
   }

@@ -606,25 +606,6 @@ input::placeholder {
   overflow-wrap: anywhere;
 }
 
-.extension-actions {
-  display: flex;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-.danger-button {
-  padding: 0;
-  border: 0;
-  color: #fda4af;
-  background: transparent;
-  font-size: 10px;
-  font-weight: 750;
-}
-
-.danger-button:hover {
-  color: #fecdd3;
-}
-
 .activity-item {
   position: relative;
   display: grid;

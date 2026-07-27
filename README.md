@@ -22,7 +22,7 @@ It answers a narrower set of useful questions:
 - Browser notifications for important changes
 - Search and focused review filters
 - Local JSON report export
-- Confirmed extension removal through Firefox
+- Direct access to Firefox's add-on manager for follow-up actions
 - No host permissions and no remote connections
 
 Permission tiers describe **potential access**, not intent or reputation. A
@@ -94,7 +94,7 @@ The credentials are never committed. See
   extension's source code.
 - It does not use ratings or online reputation in the MVP.
 - Firefox does not let one extension disable another ordinary extension.
-  Watchdog can open `about:addons` or request a user-confirmed uninstall.
+  Watchdog opens `about:addons` for user-controlled follow-up actions.
 - Change monitoring begins after the first local baseline.
 - Rules necessarily involve judgment. Every rule is visible under
   `extension/rules/` and changes should include evidence and tests.

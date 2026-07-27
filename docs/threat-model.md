@@ -49,13 +49,6 @@ dashboard, and avoid "safe" or "malicious" verdicts.
 **Mitigations:** Request no host permissions, package every rule, test source
 for remote endpoints, and declare `required: ["none"]` for data collection.
 
-### Unwanted extension removal
-
-**Threat:** A mistaken click silently removes another extension.
-
-**Mitigations:** Invoke Firefox's management uninstall API, which presents a
-browser-controlled confirmation dialog for other add-ons.
-
 ### Rule manipulation
 
 **Threat:** A contributor weakens or biases risk rules.
@@ -83,5 +76,5 @@ configuration and upload state, and rotate credentials after suspected exposure.
 - A malicious extension may behave harmfully using permissions Watchdog rates
   as limited.
 - Watchdog cannot inspect private implementation details of installed add-ons.
-- Firefox controls which add-ons can be uninstalled and does not permit Watchdog
-  to disable ordinary extensions directly.
+- Firefox does not permit Watchdog to disable or uninstall ordinary extensions
+  directly, so follow-up actions remain in `about:addons`.
