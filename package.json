@@ -8,7 +8,9 @@
     "build": "web-ext build --source-dir extension --artifacts-dir artifacts --overwrite-dest",
     "lint": "web-ext lint --source-dir extension",
     "start": "web-ext run --source-dir extension",
-    "test": "python3 -m unittest discover -s tests -v"
+    "test": "npm run test:static && npm run test:classifier",
+    "test:static": "python3 -m unittest discover -s tests -v",
+    "test:classifier": "node --test \"tests/*.test.mjs\""
   },
   "devDependencies": {
     "web-ext": "10.5.0"

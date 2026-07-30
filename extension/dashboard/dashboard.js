@@ -22,13 +22,12 @@ let state = {
   scannedAt: null
 };
 
+// Reuses the decision the background classifier already recorded instead of
+// re-deriving it from raw patterns, so this tile cannot drift away from the
+// risk analysis shown on each card.
 function hasEveryWebsiteAccess(extension) {
-  const hosts = new Set(extension.hostPermissions || []);
-  return (
-    hosts.has("<all_urls>") ||
-    hosts.has("*://*/*") ||
-    (hosts.has("http://*/*") && hosts.has("https://*/*"))
-  );
+  const findings = extension.analysis?.findings || [];
+  return findings.some((finding) => finding.id === "host:all-sites");
 }
 
 function unreviewedChangesFor(extensionId) {

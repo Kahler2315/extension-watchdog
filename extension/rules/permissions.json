@@ -1,9 +1,4 @@
 {
-  "management": {
-    "level": "high",
-    "title": "Inspects installed add-ons",
-    "explanation": "Can read details about other add-ons and use the management actions Firefox supports."
-  },
   "nativeMessaging": {
     "level": "critical",
     "title": "Communicates with desktop software",
@@ -19,6 +14,21 @@
     "title": "Uses browser debugging tools",
     "explanation": "Can inspect and control browser activity through privileged debugging capabilities."
   },
+  "pkcs11": {
+    "level": "critical",
+    "title": "Installs security device modules",
+    "explanation": "Can register cryptographic modules that supply certificates Firefox will trust."
+  },
+  "activityLog": {
+    "level": "critical",
+    "title": "Monitors other extensions",
+    "explanation": "Can watch the API calls and events of other installed extensions."
+  },
+  "management": {
+    "level": "high",
+    "title": "Inspects installed add-ons",
+    "explanation": "Can read details about other add-ons and use the management actions Firefox supports."
+  },
   "cookies": {
     "level": "high",
     "title": "Accesses browser cookies",
@@ -28,6 +38,16 @@
     "level": "high",
     "title": "Changes network requests",
     "explanation": "Can block or modify browser requests for sites covered by its host access."
+  },
+  "webRequestFilterResponse": {
+    "level": "high",
+    "title": "Reads and rewrites response bodies",
+    "explanation": "Can inspect and alter the content returned by sites covered by its host access."
+  },
+  "webRequestAuthProvider": {
+    "level": "high",
+    "title": "Answers authentication prompts",
+    "explanation": "Can supply credentials for HTTP authentication challenges on sites it can access."
   },
   "declarativeNetRequestWithHostAccess": {
     "level": "high",
@@ -43,6 +63,56 @@
     "level": "high",
     "title": "Reads browsing history",
     "explanation": "Can inspect and modify the browser's history."
+  },
+  "bookmarks": {
+    "level": "high",
+    "title": "Reads and changes bookmarks",
+    "explanation": "Can read the full bookmark tree and create, move, or delete entries."
+  },
+  "identity": {
+    "level": "high",
+    "title": "Obtains account sign-in tokens",
+    "explanation": "Can run web authentication flows and receive the resulting access tokens."
+  },
+  "scripting": {
+    "level": "high",
+    "title": "Injects scripts into pages",
+    "explanation": "Can run its own scripts and styles on sites covered by its host access."
+  },
+  "userScripts": {
+    "level": "high",
+    "title": "Runs user-provided scripts",
+    "explanation": "Can register and execute third-party scripts on sites covered by its host access."
+  },
+  "geolocation": {
+    "level": "high",
+    "title": "Reads your location",
+    "explanation": "Can request the device location that Firefox reports."
+  },
+  "pageCapture": {
+    "level": "high",
+    "title": "Saves complete pages",
+    "explanation": "Can capture the full content of pages it can access, including signed-in views."
+  },
+  "browserSettings": {
+    "level": "high",
+    "title": "Changes browser settings",
+    "explanation": "Can read and modify Firefox settings that affect browsing behavior."
+  },
+  "downloads.open": {
+    "level": "high",
+    "title": "Opens downloaded files",
+    "explanation": "Can ask the operating system to open files that Firefox downloaded."
+  },
+  "tabHide": {
+    "level": "high",
+    "title": "Hides browser tabs",
+    "explanation": "Can hide tabs from view, which can conceal activity from you."
+  },
+  "mozillaAddons": {
+    "level": "high",
+    "title": "Accesses Mozilla add-on sites",
+    "explanation": "Holds privileged access to Mozilla's own add-on domains."
   },
   "downloads": {
     "level": "moderate",
@@ -69,6 +139,21 @@
     "title": "Observes network requests",
     "explanation": "Can observe browser requests for sites covered by its host access."
   },
+  "webNavigation": {
+    "level": "moderate",
+    "title": "Follows page navigation",
+    "explanation": "Can see navigation events across the sites covered by its host access."
+  },
+  "declarativeNetRequest": {
+    "level": "moderate",
+    "title": "Blocks or redirects requests",
+    "explanation": "Can apply packaged rules that block or redirect browser requests."
+  },
+  "declarativeNetRequestFeedback": {
+    "level": "moderate",
+    "title": "Reports matched request rules",
+    "explanation": "Can see which of its request rules matched, which reveals browsing activity."
+  },
   "dns": {
     "level": "moderate",
     "title": "Performs DNS lookups",
@@ -78,6 +163,61 @@
     "level": "moderate",
     "title": "Reads tab details",
     "explanation": "Can read sensitive tab properties such as page titles and addresses."
+  },
+  "sessions": {
+    "level": "moderate",
+    "title": "Reads recently closed tabs",
+    "explanation": "Can list and restore tabs and windows you recently closed."
+  },
+  "topSites": {
+    "level": "moderate",
+    "title": "Reads most-visited sites",
+    "explanation": "Can read the list of sites Firefox considers your most visited."
+  },
+  "contextualIdentities": {
+    "level": "moderate",
+    "title": "Manages container tabs",
+    "explanation": "Can create, change, and remove the container identities that separate browsing."
+  },
+  "find": {
+    "level": "moderate",
+    "title": "Searches page text",
+    "explanation": "Can run find-in-page and read the surrounding text of the matches."
+  },
+  "search": {
+    "level": "moderate",
+    "title": "Uses installed search engines",
+    "explanation": "Can read the installed search engines and run searches with them."
+  },
+  "devtools": {
+    "level": "moderate",
+    "title": "Extends developer tools",
+    "explanation": "Can add developer tools panels that inspect the page being debugged."
+  },
+  "geckoProfiler": {
+    "level": "moderate",
+    "title": "Records browser performance profiles",
+    "explanation": "Can capture detailed profiles of what Firefox is executing."
+  },
+  "networkStatus": {
+    "level": "moderate",
+    "title": "Reads network connection status",
+    "explanation": "Can observe the type and state of the current network connection."
+  },
+  "urlbar": {
+    "level": "moderate",
+    "title": "Adds address bar results",
+    "explanation": "Can contribute suggestions to the address bar and see what is typed there."
+  },
+  "telemetry": {
+    "level": "moderate",
+    "title": "Submits Firefox telemetry",
+    "explanation": "Can record data through Firefox's internal telemetry system."
+  },
+  "normandyAddonStudy": {
+    "level": "moderate",
+    "title": "Participates in Mozilla studies",
+    "explanation": "Can take part in Mozilla's managed add-on study system."
   },
   "activeTab": {
     "level": "limited",
@@ -89,9 +229,49 @@
     "title": "Stores local settings",
     "explanation": "Can save its own preferences and state inside Firefox."
   },
+  "unlimitedStorage": {
+    "level": "limited",
+    "title": "Stores data without a size limit",
+    "explanation": "Can keep its own data without the usual local storage quota."
+  },
   "notifications": {
     "level": "limited",
     "title": "Shows notifications",
     "explanation": "Can display operating-system notifications."
+  },
+  "alarms": {
+    "level": "limited",
+    "title": "Schedules background timers",
+    "explanation": "Can schedule its own code to run at a later time."
+  },
+  "menus": {
+    "level": "limited",
+    "title": "Adds context menu items",
+    "explanation": "Can add its own entries to Firefox context menus."
+  },
+  "contextMenus": {
+    "level": "limited",
+    "title": "Adds context menu items",
+    "explanation": "Can add its own entries to Firefox context menus."
+  },
+  "menus.overrideContext": {
+    "level": "limited",
+    "title": "Replaces context menu contents",
+    "explanation": "Can substitute its own menu for the standard context menu it provides."
+  },
+  "theme": {
+    "level": "limited",
+    "title": "Changes browser appearance",
+    "explanation": "Can apply themes that change Firefox colors and images."
+  },
+  "idle": {
+    "level": "limited",
+    "title": "Detects when you step away",
+    "explanation": "Can tell whether the computer is active, idle, or locked."
+  },
+  "captivePortal": {
+    "level": "limited",
+    "title": "Detects sign-in networks",
+    "explanation": "Can tell whether the current network requires a captive portal sign-in."
   }
 }
