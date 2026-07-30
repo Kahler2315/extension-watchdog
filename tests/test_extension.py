@@ -30,6 +30,16 @@ class ManifestTests(unittest.TestCase):
             "140.0",
         )
 
+    def test_manifest_and_package_versions_agree(self):
+        """AMO signs whatever the manifest declares, so the packaged version and
+        the npm version must not drift apart."""
+        package = json.loads(
+            (ROOT / "package.json").read_text(encoding="utf-8")
+        )
+
+        self.assertRegex(self.manifest["version"], r"^\d+\.\d+\.\d+$")
+        self.assertEqual(self.manifest["version"], package["version"])
+
     def test_manifest_declares_no_data_collection(self):
         permissions = self.manifest["browser_specific_settings"]["gecko"][
             "data_collection_permissions"
