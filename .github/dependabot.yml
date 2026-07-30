@@ -18,3 +18,16 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: build
+    # These three are transitive dev-only dependencies of web-ext, the sole
+    # direct dependency here. Their advisories are denial-of-service issues in
+    # build tooling that never ships to users, and the only remediation npm
+    # offers is downgrading web-ext to 0.0.1, so every automated attempt fails
+    # and leaves a permanently red check.
+    #
+    # web-ext itself is deliberately not ignored. A real fix can only arrive as
+    # a web-ext release that moves off the affected versions, and that update
+    # will still be proposed. Remove these entries once web-ext ships it.
+    ignore:
+      - dependency-name: adm-zip
+      - dependency-name: shell-quote
+      - dependency-name: brace-expansion
