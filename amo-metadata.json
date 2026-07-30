@@ -8,7 +8,11 @@
     ]
   },
   "version": {
-    "license": "MPL-2.0"
+    "license": "MPL-2.0",
+    "release_notes": {
+      "en-US": "Revalidated release from the security-reviewed repository. This update does not change extension permissions, data practices, or network behavior; Extension Watchdog continues to inspect extension metadata locally without sending browser data anywhere."
+    },
+    "approval_notes": "Version 0.1.1 is a revalidated build from the security-reviewed repository. The extension code, permissions, local-only behavior, and declared data practices are unchanged from 0.1.0. Repository tests and Mozilla lint pass. The publishing workflow now returns after AMO accepts the listed source for review instead of waiting for reviewer approval."
   },
   "homepage": {
     "en-US": "https://github.com/Kahler2315/extension-watchdog"
