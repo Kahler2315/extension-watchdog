@@ -7,3 +7,27 @@ __pycache__/
 *.zip
 .amo-upload-uuid
 .DS_Store
+
+# Local credentials and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.kdbx
+
+# Local data, backups, and editor state
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.swo

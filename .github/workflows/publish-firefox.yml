@@ -35,12 +35,13 @@ jobs:
           --artifacts-dir artifacts
           --channel listed
           --amo-metadata amo-metadata.json
+          --approval-timeout 0
           --api-key "$AMO_JWT_ISSUER"
           --api-secret "$AMO_JWT_SECRET"
 
-      - name: Upload signed package
+      - name: Upload submitted source package
         uses: actions/upload-artifact@v4
         with:
-          name: extension-watchdog-signed
-          path: artifacts/*.xpi
+          name: extension-watchdog-submitted-source
+          path: artifacts/*.zip
           if-no-files-found: error
