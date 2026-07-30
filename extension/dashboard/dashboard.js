@@ -36,11 +36,17 @@ function unreviewedChangesFor(extensionId) {
   });
 }
 
+// Consumes the classifier's own decision so a finding that says review is
+// required cannot be missing from the review queue. Snapshots written before
+// requiresReview existed fall back to the level test.
 function needsReview(extension) {
-  return (
-    ["critical", "high"].includes(extension.analysis.level) ||
-    unreviewedChangesFor(extension.id).length > 0
-  );
+  const analysis = extension.analysis || {};
+  const requiresReview =
+    typeof analysis.requiresReview === "boolean"
+      ? analysis.requiresReview
+      : ["critical", "high"].includes(analysis.level);
+
+  return requiresReview || unreviewedChangesFor(extension.id).length > 0;
 }
 
 function formatRelativeDate(value) {
