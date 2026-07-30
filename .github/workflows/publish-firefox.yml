@@ -12,18 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Install pinned extension tooling
         run: npm install
 
+      - name: Run repository tests
+        run: npm test
+
       - name: Run Mozilla linter
         run: npm run lint
+
+      - name: Build submitted package
+        run: npm run build
 
       - name: Submit listed release to AMO
         env:
@@ -40,7 +46,7 @@ jobs:
           --api-secret "$AMO_JWT_SECRET"
 
       - name: Upload submitted source package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: extension-watchdog-submitted-source
           path: artifacts/*.zip
