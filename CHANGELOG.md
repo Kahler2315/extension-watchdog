@@ -14,9 +14,17 @@
 - Produce an explicit review-required finding for API permissions and host
   patterns that are not recognized. An unrecognized capability previously
   produced no finding at all and left an extension looking limited.
-- Expand `extension/rules/permissions.json` to the documented Firefox
-  permission catalog, so the unknown-capability fallback only applies to
-  genuinely unreviewed permissions.
+- Expand `extension/rules/permissions.json` to cover all 53 permission names
+  Firefox documents for `manifest.json`, so the unknown-capability fallback
+  only applies to genuinely unreviewed permissions. A test asserts that list by
+  name, so an omission fails the build instead of quietly degrading to the
+  generic description.
+- Include unknown capabilities in the dashboard review queue. The finding said
+  manual review was required but carried a moderate level, and the queue only
+  counted high and critical ratings, so an extension whose capabilities were
+  all unrecognized reported zero items needing review. The queue now consumes
+  an explicit review flag from the classifier instead of inferring one from the
+  level.
 - Refresh a stored snapshot older than five minutes when the popup or
   dashboard requests state. Firefox raises no management event when a user
   grants or revokes an optional permission, so a snapshot could otherwise stay

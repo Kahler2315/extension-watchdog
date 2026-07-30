@@ -183,6 +183,10 @@ function analyzeExtension(extension, rules) {
       source: "permission",
       subject: permission,
       level: "moderate",
+      // Carries its own review flag rather than relying on the level. A
+      // moderate rating alone does not reach the dashboard review queue, which
+      // would contradict the title of this finding.
+      requiresReview: true,
       title: "Unknown Firefox capability: manual review required",
       explanation: `Extension Watchdog does not have a reviewed description for the "${permission}" permission. Check what this capability allows before treating the extension as low risk.`
     });
@@ -215,6 +219,7 @@ function analyzeExtension(extension, rules) {
       source: "host",
       subject: unknownHosts.join(", "),
       level: "moderate",
+      requiresReview: true,
       title: "Unrecognized website access pattern: manual review required",
       explanation: "Firefox reported a host permission that Extension Watchdog could not interpret, so the amount of website access it grants is unclear."
     });
@@ -266,8 +271,19 @@ function analyzeExtension(extension, rules) {
   return {
     level,
     findings,
+    requiresReview: analysisRequiresReview(level, findings),
     summary: summarizeAnalysis(level, findings)
   };
+}
+
+// The single source of truth for whether an extension belongs in the review
+// queue. A high or critical rating qualifies, and so does any finding that
+// explicitly asks for review even when its own level is lower.
+function analysisRequiresReview(level, findings) {
+  return (
+    ["critical", "high"].includes(level) ||
+    findings.some((finding) => finding.requiresReview === true)
+  );
 }
 
 function summarizeAnalysis(level, findings) {

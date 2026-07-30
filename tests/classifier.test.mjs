@@ -224,6 +224,81 @@ test("a host pattern reported as an api permission is still classified", () => {
   );
 });
 
+// The permission names Firefox documents for manifest.json. A name here with no
+// rule falls through to the unknown-capability fallback, which is safe but
+// generic, so this list is what "reviewed catalog" actually means.
+const DOCUMENTED_FIREFOX_PERMISSIONS = [
+  "activeTab", "alarms", "background", "bookmarks", "browserSettings",
+  "browsingData", "captivePortal", "clipboardRead", "clipboardWrite",
+  "contentSettings", "contextMenus", "contextualIdentities", "cookies",
+  "debugger", "declarativeNetRequest", "declarativeNetRequestFeedback",
+  "declarativeNetRequestWithHostAccess", "devtools", "dns", "downloads",
+  "downloads.open", "find", "geolocation", "history", "identity", "idle",
+  "management", "menus", "menus.overrideContext", "nativeMessaging",
+  "notifications", "pageCapture", "pkcs11", "privacy", "proxy", "publicSuffix",
+  "scripting", "search", "sessions", "storage", "tabGroups", "tabHide", "tabs",
+  "theme", "topSites", "unlimitedStorage", "userScripts", "webNavigation",
+  "webRequest", "webRequestAuthProvider", "webRequestBlocking",
+  "webRequestFilterResponse", "webRequestFilterResponse.serviceWorkerScript"
+];
+
+test("every documented Firefox permission has a reviewed rule", () => {
+  const missing = DOCUMENTED_FIREFOX_PERMISSIONS.filter(
+    (permission) => !Object.hasOwn(rules.permissions, permission)
+  );
+
+  assert.deepEqual(
+    missing,
+    [],
+    `documented permissions with no reviewed rule: ${missing.join(", ")}`
+  );
+});
+
+test("an unknown capability lands in the review queue", () => {
+  // The classifier calling something "manual review required" while the
+  // dashboard review queue ignores it is the contradiction this guards.
+  const analysis = classifier.analyzeExtension(
+    makeExtension({ permissions: ["someFutureCapability"] }),
+    rules
+  );
+
+  assert.equal(analysis.level, "moderate");
+  assert.equal(
+    analysis.requiresReview,
+    true,
+    "a moderate finding that demands review must still reach the queue"
+  );
+});
+
+test("an unrecognized host pattern lands in the review queue", () => {
+  const analysis = classifier.analyzeExtension(
+    makeExtension({ hostPermissions: ["not-a-pattern"] }),
+    rules
+  );
+
+  assert.equal(analysis.requiresReview, true);
+});
+
+test("high and critical ratings still require review", () => {
+  for (const permission of ["cookies", "nativeMessaging"]) {
+    const analysis = classifier.analyzeExtension(
+      makeExtension({ permissions: [permission] }),
+      rules
+    );
+    assert.equal(analysis.requiresReview, true, permission);
+  }
+});
+
+test("ordinary limited extensions do not require review", () => {
+  const analysis = classifier.analyzeExtension(
+    makeExtension({ permissions: ["storage", "notifications", "alarms"] }),
+    rules
+  );
+
+  assert.equal(analysis.level, "limited");
+  assert.equal(analysis.requiresReview, false);
+});
+
 test("snapshot freshness is bounded and rejects future timestamps", () => {
   const now = Date.parse("2026-07-30T12:00:00.000Z");
   const freshWindow = 5 * 60 * 1000;

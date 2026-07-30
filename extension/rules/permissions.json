@@ -44,6 +44,31 @@
     "title": "Reads and rewrites response bodies",
     "explanation": "Can inspect and alter the content returned by sites covered by its host access."
   },
+  "webRequestFilterResponse.serviceWorkerScript": {
+    "level": "high",
+    "title": "Rewrites service worker code",
+    "explanation": "Can alter the service worker scripts a site installs, which then run on later visits."
+  },
+  "contentSettings": {
+    "level": "high",
+    "title": "Changes per-site content permissions",
+    "explanation": "Can change what sites are allowed to do, such as running scripts or using the camera."
+  },
+  "publicSuffix": {
+    "level": "moderate",
+    "title": "Queries public suffix data",
+    "explanation": "Can ask Firefox where the registrable part of a domain name begins."
+  },
+  "tabGroups": {
+    "level": "moderate",
+    "title": "Manages tab groups",
+    "explanation": "Can read, create, and change the groups your tabs are organized into."
+  },
+  "background": {
+    "level": "limited",
+    "title": "Keeps running in the background",
+    "explanation": "Asks Firefox to start it at launch and keep it running while the browser is open."
+  },
   "webRequestAuthProvider": {
     "level": "high",
     "title": "Answers authentication prompts",
