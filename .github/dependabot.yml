@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  # Release workflows pin actions to full commit SHAs. Dependabot rewrites both
+  # the SHA and the trailing version comment, so updates stay reviewable.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: build

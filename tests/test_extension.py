@@ -115,7 +115,58 @@ class SourceSafetyTests(unittest.TestCase):
                 )
                 self.assertNotIn("eval(", source)
                 self.assertNotIn(".innerHTML", source)
-                self.assertNotIn("management.uninstall", source)
+
+    def test_network_calls_use_only_packaged_extension_urls(self):
+        """A literal https:// regex misses a dynamically built remote URL, so
+        every network-capable call site is checked against an allowlist of
+        argument shapes instead."""
+        allowed_argument = re.compile(
+            r"""^\s*(?:browser\.runtime\.getURL\(|["'](?:/|\.{1,2}/)?[A-Za-z0-9._/-]*["']\s*\))"""
+        )
+        network_call = re.compile(r"\b(?:fetch|WebSocket|EventSource|XMLHttpRequest)\s*\(")
+
+        for path in EXTENSION.rglob("*.js"):
+            source = path.read_text(encoding="utf-8")
+            for match in network_call.finditer(source):
+                argument = source[match.end():match.end() + 120]
+                with self.subTest(path=path, call=match.group(0)):
+                    self.assertRegex(
+                        argument,
+                        allowed_argument,
+                        f"{match.group(0)} must load a packaged extension URL",
+                    )
+
+    def test_source_never_mutates_other_extensions(self):
+        """Extension Watchdog reads the management API but must never change
+        another add-on's state. The management permission also allows enabling,
+        disabling, and installing, so all of those are forbidden too."""
+        forbidden = [
+            "management.uninstall",
+            "management.setEnabled",
+            "management.install",
+            "management.uninstallSelf",
+        ]
+
+        for path in EXTENSION.rglob("*.js"):
+            source = path.read_text(encoding="utf-8")
+            for api in forbidden:
+                with self.subTest(path=path, api=api):
+                    self.assertNotIn(api, source)
+
+    def test_management_usage_is_limited_to_read_and_events(self):
+        allowed = {
+            "getAll",
+            "onInstalled",
+            "onUninstalled",
+            "onEnabled",
+            "onDisabled",
+        }
+
+        for path in EXTENSION.rglob("*.js"):
+            source = path.read_text(encoding="utf-8")
+            for member in re.findall(r"management\.([A-Za-z]+)", source):
+                with self.subTest(path=path, member=member):
+                    self.assertIn(member, allowed)
 
     def test_rules_are_loaded_from_packaged_urls(self):
         background = (EXTENSION / "background" / "background.js").read_text(

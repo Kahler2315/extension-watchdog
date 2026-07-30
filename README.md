@@ -43,7 +43,7 @@ For automatic reload and Mozilla's linter, install the current Node.js LTS
 release and run:
 
 ```sh
-npm install
+npm ci
 npm start
 ```
 
@@ -54,6 +54,10 @@ npm test
 npm run lint
 npm run build
 ```
+
+`npm test` runs the Python static checks over the packaged sources and the
+Node regression suite for the risk classifier, so both interpreters need to be
+available.
 
 ## Privacy
 

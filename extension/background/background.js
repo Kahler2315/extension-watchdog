@@ -4,12 +4,9 @@ const STORAGE_KEYS = {
   scannedAt: "lastScannedAt"
 };
 
-const LEVEL_ORDER = {
-  limited: 0,
-  moderate: 1,
-  high: 2,
-  critical: 3
-};
+// LEVEL_ORDER, the host-permission classifier, analyzeExtension and
+// isSnapshotFresh come from background/classifier.js, which the manifest loads
+// first.
 
 const MAX_CHANGE_HISTORY = 200;
 let scanChain = Promise.resolve();
@@ -40,26 +37,6 @@ function sortedUnique(values = []) {
   return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
-function hasAllSitesAccess(hostPermissions) {
-  const hosts = new Set(hostPermissions);
-  return (
-    hosts.has("<all_urls>") ||
-    hosts.has("*://*/*") ||
-    (hosts.has("http://*/*") && hosts.has("https://*/*"))
-  );
-}
-
-function hasBroadHostAccess(hostPermissions) {
-  return hostPermissions.some((host) => {
-    return (
-      host === "<all_urls>" ||
-      host === "*://*/*" ||
-      host.includes("://*.") ||
-      host.startsWith("*://")
-    );
-  });
-}
-
 function chooseIcon(icons = []) {
   return [...icons]
     .filter((icon) => icon && icon.url)
@@ -83,127 +60,6 @@ function normalizeExtension(info) {
     permissions: sortedUnique(info.permissions),
     hostPermissions: sortedUnique(info.hostPermissions)
   };
-}
-
-function requirementMatches(requirement, extension) {
-  const [kind, value] = requirement.split(":", 2);
-
-  if (kind === "permission") {
-    return extension.permissions.includes(value);
-  }
-
-  if (kind === "host" && value === "all_sites") {
-    return hasAllSitesAccess(extension.hostPermissions);
-  }
-
-  if (kind === "host" && value === "broad") {
-    return hasBroadHostAccess(extension.hostPermissions);
-  }
-
-  return false;
-}
-
-function analyzeExtension(extension, rules) {
-  const findings = [];
-
-  for (const permission of extension.permissions) {
-    const rule = rules.permissions[permission];
-    if (rule) {
-      findings.push({
-        id: `permission:${permission}`,
-        source: "permission",
-        subject: permission,
-        ...rule
-      });
-    }
-  }
-
-  if (hasAllSitesAccess(extension.hostPermissions)) {
-    findings.push({
-      id: "host:all-sites",
-      source: "host",
-      subject: "<all_urls>",
-      level: "high",
-      title: "Accesses every website",
-      explanation: "Can read or change data on nearly every website, depending on the extension's behavior."
-    });
-  } else if (hasBroadHostAccess(extension.hostPermissions)) {
-    findings.push({
-      id: "host:broad",
-      source: "host",
-      subject: "broad host access",
-      level: "moderate",
-      title: "Accesses broad groups of websites",
-      explanation: "Can interact with multiple websites covered by wildcard host permissions."
-    });
-  }
-
-  if (extension.installType === "sideload") {
-    findings.push({
-      id: "install:sideload",
-      source: "installation",
-      subject: "sideload",
-      level: "high",
-      title: "Installed by other software",
-      explanation: "Firefox reports that another application placed this extension on the computer."
-    });
-  }
-
-  if (extension.disabledReason === "permissions_increase") {
-    findings.push({
-      id: "state:permissions-increase",
-      source: "state",
-      subject: "permissions increase",
-      level: "critical",
-      title: "Disabled after requesting more access",
-      explanation: "Firefox disabled this extension because an update requested additional permissions."
-    });
-  }
-
-  for (const combination of rules.combinations) {
-    if (combination.requires.every((requirement) => requirementMatches(requirement, extension))) {
-      findings.push({
-        ...combination,
-        source: "combination",
-        subject: combination.requires.join(" + ")
-      });
-    }
-  }
-
-  findings.sort((left, right) => {
-    return (
-      LEVEL_ORDER[right.level] - LEVEL_ORDER[left.level] ||
-      left.title.localeCompare(right.title)
-    );
-  });
-
-  const level = findings.reduce((highest, finding) => {
-    return LEVEL_ORDER[finding.level] > LEVEL_ORDER[highest] ? finding.level : highest;
-  }, "limited");
-
-  return {
-    level,
-    findings,
-    summary: summarizeAnalysis(level, findings)
-  };
-}
-
-function summarizeAnalysis(level, findings) {
-  const combinations = findings.filter((finding) => finding.source === "combination");
-  if (combinations.length > 0) {
-    return combinations[0].title;
-  }
-
-  const mostImportant = findings[0];
-  if (mostImportant) {
-    return mostImportant.title;
-  }
-
-  if (level === "limited") {
-    return "No broad capabilities recognized";
-  }
-
-  return "Review its capabilities";
 }
 
 function arrayDifference(nextValues, previousValues) {
@@ -405,7 +261,14 @@ async function getState() {
     STORAGE_KEYS.scannedAt
   ]);
 
-  if (!stored[STORAGE_KEYS.snapshot]) {
+  // Optional permission and host-access grants do not raise a management event,
+  // so a stored snapshot is only trusted inside a bounded freshness window.
+  // Refreshing here rather than polling keeps scanning tied to real user
+  // interaction.
+  if (
+    !stored[STORAGE_KEYS.snapshot] ||
+    !isSnapshotFresh(stored[STORAGE_KEYS.scannedAt])
+  ) {
     return queueScan();
   }
 

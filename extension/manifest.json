@@ -29,6 +29,7 @@
   ],
   "background": {
     "scripts": [
+      "background/classifier.js",
       "background/background.js"
     ]
   },
