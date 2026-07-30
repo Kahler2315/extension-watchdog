@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Extension Watchdog",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Understand extension permissions and review meaningful changes without sending browser data anywhere.",
   "homepage_url": "https://github.com/Kahler2315/extension-watchdog",
   "icons": {
