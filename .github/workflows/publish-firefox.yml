@@ -1,6 +1,9 @@
 name: Publish to Firefox Add-ons
 
 on:
+  push:
+    branches:
+      - amo-publish-extension-watchdog-20260731
   workflow_dispatch:
 
 permissions:
