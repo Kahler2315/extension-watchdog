@@ -11,9 +11,9 @@
 
 ### Firefox management API
 
-Watchdog trusts Firefox to report installed extension metadata accurately. A
+Permission Hound trusts Firefox to report installed extension metadata accurately. A
 missing or changed browser API field can reduce analysis quality but must not
-grant Watchdog additional access.
+grant Permission Hound additional access.
 
 ### Packaged rules
 
@@ -44,7 +44,7 @@ dashboard, and avoid "safe" or "malicious" verdicts.
 
 ### Exfiltration of extension inventory
 
-**Threat:** Watchdog sends installed extension metadata to a third party.
+**Threat:** Permission Hound sends installed extension metadata to a third party.
 
 **Mitigations:** Request no host permissions, package every rule, test source
 for remote endpoints, and declare `required: ["none"]` for data collection.
@@ -73,8 +73,8 @@ configuration and upload state, and rotate credentials after suspected exposure.
 
 ## Accepted limitations
 
-- A malicious extension may behave harmfully using permissions Watchdog rates
+- A malicious extension may behave harmfully using permissions Permission Hound rates
   as limited.
-- Watchdog cannot inspect private implementation details of installed add-ons.
-- Firefox does not permit Watchdog to disable or uninstall ordinary extensions
+- Permission Hound cannot inspect private implementation details of installed add-ons.
+- Firefox does not permit Permission Hound to disable or uninstall ordinary extensions
   directly, so follow-up actions remain in `about:addons`.

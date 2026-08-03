@@ -187,13 +187,13 @@ async function notifyAboutChanges(changes) {
   const message =
     additionalCount > 0
       ? `${first.title}. ${additionalCount} more change${additionalCount === 1 ? "" : "s"} need review.`
-      : `${first.title}. Open Extension Watchdog to review it.`;
+      : `${first.title}. Open Permission Hound to review it.`;
 
   await browser.notifications.create("extension-watchdog-change", {
     type: "basic",
     title: "Extension access changed",
     message,
-    iconUrl: browser.runtime.getURL("icons/watchdog-96.png")
+    iconUrl: browser.runtime.getURL("icons/permission-hound-96.png")
   });
 }
 

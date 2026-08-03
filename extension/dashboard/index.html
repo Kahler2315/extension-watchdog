@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Extension Watchdog</title>
+    <title>Permission Hound</title>
     <link rel="stylesheet" href="dashboard.css">
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="Extension Watchdog home">
-        <img src="../icons/watchdog-48.png" alt="" width="42" height="42">
-        <span>Extension Watchdog</span>
+      <a class="brand" href="#top" aria-label="Permission Hound home">
+        <img src="../icons/permission-hound-48.png" alt="" width="42" height="42">
+        <span>Permission Hound</span>
       </a>
       <span class="local-pill">
         <span class="local-dot" aria-hidden="true"></span>
@@ -20,7 +20,14 @@
 
     <main id="top" class="page-shell">
       <section class="hero" aria-labelledby="hero-title">
-        <div>
+        <img
+          class="hero-logo"
+          src="../icons/permission-hound-logo.png"
+          alt=""
+          width="184"
+          height="184"
+        >
+        <div class="hero-copy-block">
           <p class="eyebrow">Browser access, made understandable</p>
           <h1 id="hero-title">Know what your extensions can do.</h1>
           <p class="hero-copy">
@@ -28,22 +35,13 @@
             Your extension inventory never leaves Firefox.
           </p>
         </div>
-        <div class="hero-side">
-          <img
-            class="hero-logo"
-            src="../icons/watchdog-logo.png"
-            alt=""
-            width="132"
-            height="132"
-          >
-          <div class="hero-actions">
-            <button id="scan-button" class="button button-primary" type="button">
-              Scan now
-            </button>
-            <button id="addons-button" class="button button-secondary" type="button">
-              Open Firefox Add-ons
-            </button>
-          </div>
+        <div class="hero-actions">
+          <button id="scan-button" class="button button-primary" type="button">
+            Scan now
+          </button>
+          <button id="addons-button" class="button button-secondary" type="button">
+            Open Firefox Add-ons
+          </button>
         </div>
       </section>
 
@@ -77,7 +75,7 @@
         <div>
           <strong>No browsing history. No website access. No telemetry.</strong>
           <p>
-            Watchdog reads Firefox's add-on metadata and stores snapshots locally
+            Permission Hound reads Firefox's add-on metadata and stores snapshots locally
             so it can explain what changed.
           </p>
         </div>

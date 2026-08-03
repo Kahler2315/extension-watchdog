@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.4 - 2026-08-03
+
+- Rename the Firefox extension to Permission Hound.
+- Replace the Watchdog shield artwork with the Permission Hound dog, checklist,
+  and lock artwork throughout the Firefox toolbar, popup, dashboard, and
+  notifications.
+- Update the interface to an obsidian, silver, and violet theme based on the
+  new Permission Hound identity.
+
+The add-on ID, requested permissions, local-only analysis, snapshots, and
+change-history behavior are unchanged.
+
 ## 0.1.3 - 2026-08-03
 
 - Replace the generic toolbar icon with the Watchdog shield artwork at the
