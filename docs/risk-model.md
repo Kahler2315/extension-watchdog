@@ -1,6 +1,6 @@
 # Capability Risk Model
 
-Extension Watchdog classifies potential access, not developer intent,
+Permission Hound classifies potential access, not developer intent,
 reputation, or malware likelihood.
 
 ## Tiers

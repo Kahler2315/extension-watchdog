@@ -147,7 +147,7 @@ class SourceSafetyTests(unittest.TestCase):
                     )
 
     def test_source_never_mutates_other_extensions(self):
-        """Extension Watchdog reads the management API but must never change
+        """Permission Hound reads the management API but must never change
         another add-on's state. The management permission also allows enabling,
         disabling, and installing, so all of those are forbidden too."""
         forbidden = [

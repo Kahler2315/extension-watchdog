@@ -254,7 +254,7 @@ function createExtensionCard(extension) {
         level: "limited",
         title: "No broad capabilities recognized",
         explanation:
-          "This does not prove the extension is safe. It means Watchdog did not identify a powerful permission in the current rule set."
+          "This does not prove the extension is safe. It means Permission Hound did not identify a powerful permission in the current rule set."
       })
     );
   } else {
@@ -433,7 +433,7 @@ async function markReviewed() {
 function exportReport() {
   const report = {
     generatedAt: new Date().toISOString(),
-    product: "Extension Watchdog",
+    product: "Permission Hound",
     version: browser.runtime.getManifest().version,
     privacy: "Generated locally. No report data was transmitted.",
     ...state
@@ -444,7 +444,7 @@ function exportReport() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `extension-watchdog-report-${new Date()
+  anchor.download = `permission-hound-report-${new Date()
     .toISOString()
     .slice(0, 10)}.json`;
   anchor.click();

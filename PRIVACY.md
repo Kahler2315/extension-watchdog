@@ -1,6 +1,6 @@
 # Privacy
 
-Extension Watchdog is designed to work without collecting or transmitting user
+Permission Hound is designed to work without collecting or transmitting user
 data.
 
 ## Data read from Firefox
@@ -26,12 +26,12 @@ The following information is stored in `browser.storage.local`:
 - Whether a recorded change has been reviewed
 
 This information remains inside the user's Firefox profile. Removing Extension
-Watchdog removes its extension storage according to Firefox's normal add-on
+Permission Hound removes its extension storage according to Firefox's normal add-on
 behavior.
 
 ## Network behavior
 
-Extension Watchdog does not contact remote servers. Its permission and
+Permission Hound does not contact remote servers. Its permission and
 combination rules are packaged with the add-on. Exported reports are created
 locally and are only shared if the user chooses to share them.
 

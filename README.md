@@ -1,6 +1,6 @@
-# Extension Watchdog
+# Permission Hound
 
-Extension Watchdog is a local-first Firefox add-on that explains extension
+Permission Hound is a local-first Firefox add-on that explains extension
 permissions and records meaningful changes over time.
 
 It does not inspect browsing history, inject scripts into websites, send
@@ -37,7 +37,7 @@ Firefox can load the source directly:
 2. Select **This Firefox**.
 3. Choose **Load Temporary Add-on**.
 4. Select `extension/manifest.json`.
-5. Click the Extension Watchdog toolbar button and open the dashboard.
+5. Click the Permission Hound toolbar button and open the dashboard.
 
 For automatic reload and Mozilla's linter, install the current Node.js LTS
 release and run:
@@ -94,11 +94,11 @@ The credentials are never committed. See
 
 ## Known boundaries
 
-- Watchdog analyzes metadata exposed by Firefox; it does not inspect another
+- Permission Hound analyzes metadata exposed by Firefox; it does not inspect another
   extension's source code.
 - It does not use ratings or online reputation in the MVP.
 - Firefox does not let one extension disable another ordinary extension.
-  Watchdog opens `about:addons` for user-controlled follow-up actions.
+  Permission Hound opens `about:addons` for user-controlled follow-up actions.
 - Change monitoring begins after the first local baseline.
 - Rules necessarily involve judgment. Every rule is visible under
   `extension/rules/` and changes should include evidence and tests.

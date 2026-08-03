@@ -24,7 +24,7 @@ const WEB_MATCH_SCHEMES = new Set(["*", "http", "https", "ws", "wss"]);
 const OTHER_MATCH_SCHEMES = new Set(["file", "ftp", "data"]);
 
 // Splits a WebExtension match pattern into its parts, or returns null when the
-// pattern is not one Extension Watchdog can reason about. Parsing structurally
+// pattern is not one Permission Hound can reason about. Parsing structurally
 // avoids the false negatives that string-shape checks produce, such as treating
 // "https://*/*" as a narrow permission because it does not start with "*://".
 function parseMatchPattern(pattern) {
@@ -188,7 +188,7 @@ function analyzeExtension(extension, rules) {
       // would contradict the title of this finding.
       requiresReview: true,
       title: "Unknown Firefox capability: manual review required",
-      explanation: `Extension Watchdog does not have a reviewed description for the "${permission}" permission. Check what this capability allows before treating the extension as low risk.`
+      explanation: `Permission Hound does not have a reviewed description for the "${permission}" permission. Check what this capability allows before treating the extension as low risk.`
     });
   }
 
@@ -221,7 +221,7 @@ function analyzeExtension(extension, rules) {
       level: "moderate",
       requiresReview: true,
       title: "Unrecognized website access pattern: manual review required",
-      explanation: "Firefox reported a host permission that Extension Watchdog could not interpret, so the amount of website access it grants is unclear."
+      explanation: "Firefox reported a host permission that Permission Hound could not interpret, so the amount of website access it grants is unclear."
     });
   }
 
