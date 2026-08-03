@@ -6,6 +6,7 @@ const dashboardButton = document.querySelector("#dashboard-button");
 
 function needsReview(extension, changes) {
   return (
+    extension.analysis.requiresReview === true ||
     ["critical", "high"].includes(extension.analysis.level) ||
     changes.some((change) => {
       return change.extensionId === extension.id && !change.reviewed;

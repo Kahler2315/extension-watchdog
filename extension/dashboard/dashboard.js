@@ -87,6 +87,29 @@ function createElement(tagName, className, text) {
   return element;
 }
 
+function concernForFinding(finding) {
+  if (finding.id === "host:all-sites") {
+    return "Why this matters: If it is misused or compromised, the extension could observe sensitive information you enter or alter pages across most of your browsing. You may not want this unless its main feature clearly needs access everywhere.";
+  }
+
+  if (finding.id === "host:broad") {
+    return "Why this matters: A wildcard can cover more sites than you expect. Prefer access limited to the specific sites where you use the extension.";
+  }
+
+  const concerns = {
+    critical:
+      "Why this matters: This is powerful access that could expose sensitive data or significantly affect your browser if it were abused. Only accept it when the feature clearly requires it and you trust the publisher.",
+    high:
+      "Why this matters: If misused—or if the extension were compromised—this access could reveal private activity or make meaningful browser changes.",
+    moderate:
+      "Why this matters: You may not want to grant this unless it is necessary for a feature you actually use.",
+    limited:
+      "Why this matters: This is usually lower impact, but it is still extra access. An extension should not request capabilities unrelated to what it does."
+  };
+
+  return concerns[finding.level] || concerns.moderate;
+}
+
 function renderSummary() {
   const enabledCount = state.extensions.filter((extension) => extension.enabled).length;
   const reviewCount = state.extensions.filter(needsReview).length;
@@ -126,9 +149,42 @@ function createFinding(finding) {
   const item = createElement("div", `finding ${finding.level}`);
   item.append(
     createElement("strong", null, finding.title),
-    createElement("p", null, finding.explanation)
+    createElement("p", "finding-explanation", finding.explanation),
+    createElement("p", "finding-concern", concernForFinding(finding))
   );
   return item;
+}
+
+const CHANGE_LABELS = {
+  permissions_added: "Permission added",
+  host_access_added: "Website access added",
+  access_removed: "Access removed",
+  version_changed: "Version update",
+  installed: "Installed",
+  removed: "Removed",
+  enabled: "Enabled",
+  disabled: "Disabled"
+};
+
+function createChangeDetails(change) {
+  const details = createElement("ul", "change-details");
+  const prefix = ["permissions_added", "host_access_added"].includes(change.type)
+    ? "+"
+    : change.type === "access_removed"
+      ? "−"
+      : "";
+  const detailClass = prefix === "+" ? "added" : prefix === "−" ? "removed" : "neutral";
+
+  for (const value of change.details || []) {
+    const item = createElement("li", `change-detail ${detailClass}`);
+    if (prefix) {
+      item.append(createElement("span", "change-prefix", prefix));
+    }
+    item.append(createElement("code", null, value));
+    details.append(item);
+  }
+
+  return details;
 }
 
 function permissionTitles(extension) {
@@ -186,7 +242,7 @@ function createExtensionCard(extension) {
   const summary = createElement(
     "summary",
     null,
-    `Review ${extension.analysis.findings.length} finding${
+    `Why this access matters · ${extension.analysis.findings.length} finding${
       extension.analysis.findings.length === 1 ? "" : "s"
     }`
   );
@@ -295,11 +351,16 @@ function renderActivity() {
 
     const copy = createElement("div");
     copy.append(
+      createElement(
+        "span",
+        `change-type change-type-${change.type}`,
+        CHANGE_LABELS[change.type] || "Change"
+      ),
       createElement("p", "activity-title", change.title),
       createElement("p", "activity-time", new Date(change.occurredAt).toLocaleString())
     );
     if (change.details?.length) {
-      copy.append(createElement("p", "activity-details", change.details.join(" · ")));
+      copy.append(createChangeDetails(change));
     }
     item.append(dot, copy);
     fragment.append(item);
