@@ -1,5 +1,15 @@
 :root {
   color-scheme: dark;
+  --bg: #070b13;
+  --surface: #111a28;
+  --surface-raised: #172235;
+  --border: #2a3a52;
+  --text: #f7f9fc;
+  --muted: #96a5ba;
+  --blue: #1671c8;
+  --blue-bright: #4ba3ff;
+  --orange: #ff9a1f;
+  --orange-bright: #ffb547;
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -10,24 +20,37 @@
 }
 
 body {
-  width: 340px;
+  width: 350px;
   margin: 0;
-  color: #f3f6fb;
+  color: var(--text);
   background:
-    radial-gradient(circle at 90% 0, rgb(52 211 153 / 12%), transparent 190px),
-    #0b1019;
+    radial-gradient(circle at 95% -5%, rgb(255 154 31 / 18%), transparent 180px),
+    radial-gradient(circle at 0 58%, rgb(22 113 200 / 16%), transparent 210px),
+    var(--bg);
 }
 
 header {
+  position: relative;
   display: flex;
-  gap: 11px;
+  gap: 13px;
   align-items: center;
-  padding: 17px 18px;
-  border-bottom: 1px solid #202c3e;
+  padding: 17px 18px 18px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(110deg, rgb(22 113 200 / 9%), rgb(255 154 31 / 6%));
+}
+
+header::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-bright) 50%, var(--orange));
+  content: "";
 }
 
 header img {
-  border-radius: 9px;
+  filter: drop-shadow(0 8px 16px rgb(0 0 0 / 38%));
 }
 
 header strong,
@@ -36,34 +59,61 @@ header span {
 }
 
 header strong {
-  margin-bottom: 3px;
-  font-size: 13px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  letter-spacing: -0.015em;
 }
 
 header span,
 footer,
 #popup-status {
-  color: #8492a7;
+  color: var(--muted);
   font-size: 10px;
 }
 
+header span {
+  color: #b9c9de;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
 main {
-  padding: 16px 18px;
+  padding: 17px 18px 18px;
 }
 
 .summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   overflow: hidden;
-  border: 1px solid #202c3e;
-  border-radius: 11px;
-  background: #111925;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgb(23 34 53 / 94%), rgb(12 18 29 / 96%));
+  box-shadow: 0 16px 36px rgb(0 0 0 / 23%);
 }
 
 .summary div {
-  padding: 14px 9px;
-  border-right: 1px solid #202c3e;
+  position: relative;
+  padding: 15px 8px 14px;
+  border-right: 1px solid var(--border);
   text-align: center;
+}
+
+.summary div::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: var(--blue);
+  content: "";
+}
+
+.summary div:nth-child(2)::before {
+  background: var(--orange);
+}
+
+.summary div:nth-child(3)::before {
+  background: linear-gradient(90deg, var(--blue), var(--orange));
 }
 
 .summary div:last-child {
@@ -77,48 +127,50 @@ main {
 
 .summary strong {
   margin-bottom: 5px;
-  font-size: 21px;
+  font-size: 22px;
   letter-spacing: -0.04em;
 }
 
 .summary span {
-  color: #8492a7;
+  color: var(--muted);
   font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  font-weight: 750;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
 }
 
 #popup-status {
   min-height: 16px;
-  margin: 13px 1px;
+  margin: 14px 1px 13px;
 }
 
 button {
   width: 100%;
-  min-height: 39px;
-  border: 0;
-  border-radius: 9px;
-  color: #052e24;
-  background: #34d399;
+  min-height: 41px;
+  border: 1px solid rgb(255 181 71 / 52%);
+  border-radius: 10px;
+  color: #201100;
+  background: linear-gradient(135deg, var(--orange-bright), var(--orange));
+  box-shadow: 0 10px 26px rgb(255 126 0 / 17%);
   cursor: pointer;
   font: inherit;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 button:hover {
-  background: #6ee7b7;
+  background: linear-gradient(135deg, #ffc367, var(--orange-bright));
 }
 
 button:focus-visible {
-  outline: 3px solid rgb(52 211 153 / 30%);
+  outline: 3px solid rgb(75 163 255 / 45%);
   outline-offset: 2px;
 }
 
 footer {
   padding: 12px 18px;
-  border-top: 1px solid #202c3e;
-  background: rgb(0 0 0 / 12%);
+  border-top: 1px solid var(--border);
+  color: #7f90a6;
+  background: rgb(0 0 0 / 15%);
   text-align: center;
 }

@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.3 - 2026-08-03
+
+- Replace the generic toolbar icon with the Watchdog shield artwork at the
+  Firefox toolbar sizes, and use that same mark in the popup, dashboard, and
+  change notifications.
+- Refresh the local-first interface around the logo's navy, blue, steel, and
+  amber palette.
+- Add a plain-language "Why this access matters" explanation to every
+  permission and website-access finding, so a capability is accompanied by
+  the practical reason a user may not want to grant it.
+- Make extension access changes directly reviewable in Recent activity:
+  newly added permissions and website access show `+`, removed access shows
+  `−`, and version changes retain the before-and-after version.
+
+Requested permissions remain `management`, `storage`, and `notifications`.
+There are still no host permissions or content scripts, and all analysis,
+snapshots, and diffs remain local.
+
 ## 0.1.2 - 2026-07-30
 
 - Parse host permissions as WebExtension match patterns instead of matching

@@ -193,7 +193,7 @@ async function notifyAboutChanges(changes) {
     type: "basic",
     title: "Extension access changed",
     message,
-    iconUrl: browser.runtime.getURL("icons/watchdog-96.svg")
+    iconUrl: browser.runtime.getURL("icons/watchdog-96.png")
   });
 }
 

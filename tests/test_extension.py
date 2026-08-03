@@ -185,6 +185,17 @@ class SourceSafetyTests(unittest.TestCase):
         self.assertIn('browser.runtime.getURL("rules/permissions.json")', background)
         self.assertIn('browser.runtime.getURL("rules/combinations.json")', background)
 
+    def test_runtime_urls_reference_packaged_files(self):
+        """Notification and rule assets can live outside the manifest, so verify
+        literal runtime URLs too instead of discovering a broken path at runtime."""
+        for path in EXTENSION.rglob("*.js"):
+            source = path.read_text(encoding="utf-8")
+            for relative_path in re.findall(
+                r'browser\.runtime\.getURL\("([^"]+)"\)', source
+            ):
+                with self.subTest(path=path, asset=relative_path):
+                    self.assertTrue((EXTENSION / relative_path).is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
