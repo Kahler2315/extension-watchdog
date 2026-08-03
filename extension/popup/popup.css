@@ -32,9 +32,10 @@ body {
 header {
   position: relative;
   display: flex;
-  gap: 13px;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
-  padding: 17px 18px 18px;
+  padding: 18px 18px 20px;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(110deg, rgb(111 65 143 / 12%), rgb(211 161 255 / 8%));
 }
@@ -50,7 +51,13 @@ header::after {
 }
 
 header img {
+  width: 76px;
+  height: 76px;
   filter: drop-shadow(0 8px 16px rgb(0 0 0 / 38%));
+}
+
+header div {
+  text-align: center;
 }
 
 header strong,
@@ -60,7 +67,7 @@ header span {
 
 header strong {
   margin-bottom: 4px;
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: -0.015em;
 }
 

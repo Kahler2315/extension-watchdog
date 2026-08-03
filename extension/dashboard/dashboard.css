@@ -139,12 +139,13 @@ a:focus-visible {
 .hero {
   position: relative;
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+  gap: 18px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 28px;
   overflow: hidden;
-  padding: 36px 38px;
+  padding: 34px 38px 38px;
   border: 1px solid var(--border);
   border-radius: 24px;
   background:
@@ -157,9 +158,9 @@ a:focus-visible {
 .hero::before {
   position: absolute;
   top: -95px;
-  right: 185px;
-  width: 300px;
-  height: 300px;
+  right: calc(50% - 150px);
+  width: 360px;
+  height: 360px;
   border: 1px solid rgb(197 138 244 / 18%);
   border-radius: 42% 42% 52% 52%;
   content: "";
@@ -189,7 +190,7 @@ p {
 }
 
 h1 {
-  max-width: 760px;
+  max-width: 860px;
   margin-bottom: 16px;
   font-size: clamp(38px, 4.6vw, 60px);
   line-height: 0.98;
@@ -210,21 +211,22 @@ h2 {
   line-height: 1.65;
 }
 
-.hero-side {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 22px;
+.hero-copy-block {
+  text-align: center;
 }
 
 .hero-logo {
   flex: 0 0 auto;
-  filter: drop-shadow(0 18px 28px rgb(0 0 0 / 42%));
+  border-radius: 18px;
+  box-shadow:
+    0 22px 42px rgb(0 0 0 / 42%),
+    0 0 0 1px rgb(197 138 244 / 24%);
+  filter: drop-shadow(0 0 20px rgb(189 120 237 / 17%));
 }
 
 .hero-actions {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -830,9 +832,8 @@ footer {
     flex-direction: column;
   }
 
-  .hero-side {
-    width: 100%;
-    justify-content: space-between;
+  .hero-actions {
+    flex-wrap: wrap;
   }
 
   .summary-grid {
