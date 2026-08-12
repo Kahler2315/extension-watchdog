@@ -13,7 +13,7 @@
     "test:classifier": "node --test \"tests/*.test.mjs\""
   },
   "devDependencies": {
-    "web-ext": "10.5.0"
+    "web-ext": "10.6.0"
   },
   "engines": {
     "node": ">=22"
